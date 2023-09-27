@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js_task4</title>
+</head>
+<body>
+    <div>
+        <button onclick="showDate()">Show Date</button><p id="outputDate"></p>
+        <button onclick="showTime()">Show Time</button><p id="outputTime"></p>
+    </div>
+
+
+    <script>
+        function showDate() {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const date = new Date().toLocaleDateString('en-IN', options).replace(/\//g, '/');
+            document.getElementById('outputDate').innerText = date;
+        }
+
+        function showTime() {
+            const options = { weekday: 'short',  month: 'short', day: 'numeric',year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZoneName: 'long' };
+            const time = new Date().toLocaleDateString('en-IN', options);
+            const timeZone = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' });
+            document.getElementById('outputTime').innerText = time + ' ' + timeZone.replace(/(\w+)\/.*/, '$1');
+        }
+    </script>
+</body>
+</html>

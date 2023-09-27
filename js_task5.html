@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js_task5</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- Styles -->
+    <style>
+        #contact label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+        }
+
+        #contact_submit {
+            padding-left: 100px;
+        }
+
+        #contact div {
+            margin-top: 1em;
+        }
+
+        textarea {
+            vertical-align: top;
+            height: 5em;
+        }
+
+        .error {
+            color: red;
+            margin-left: 10px;
+            display: none; /* Hide error messages initially */
+        }
+
+        input.invalid,
+        textarea.invalid {
+            border: 2px solid red;
+        }
+
+        input.valid,
+        textarea.valid {
+            border: 2px solid green;
+        }
+    </style>
+
+    <!-- JavaScript Code -->
+    <script>
+        $(document).ready(function() {
+            // After Form Submitted Validation
+            $("#contact_submit button").click(function(event) {
+                // Hide all error messages initially
+                $(".error").hide();
+
+                var form_data = $("#contact").serializeArray();
+                var error_free = true;
+                for (var input in form_data) {
+                    var element = $("#contact_" + form_data[input]['name']);
+                    var valid = element.hasClass("valid");
+                    var error_element = $("span.error", element.parent());
+                    if (!valid) {
+                        error_element.show(); // Show the error message
+                        error_free = false;
+                    }
+                }
+                if (!error_free) {
+                    event.preventDefault();
+                } else {
+                    alert('No errors: Form will be submitted');
+                }
+            });
+        });
+    </script>
+
+    <form id="contact" method="post" action="">
+        <!-- Name -->
+        <div>
+            <label for="contact_name">Name:</label>
+            <input type="text" id="contact_name" name="name">
+            <span class="error">This field is required</span>
+        </div>
+        <!-- Email -->
+        <div>
+            <label for="contact_email">Email:</label>
+            <input type="email" id="contact_email" name="email">
+            <span class="error">A valid email address is required</span>
+        </div>
+        <!-- Website -->
+        <div>
+            <label for="contact_website">Website:</label>
+            <input type="url" id="contact_website" name="website">
+            <span class="error">A valid URL is required</span>
+        </div>
+        <!-- Message -->
+        <div>
+            <label for="contact_message">Message:</label>
+            <textarea id="contact_message" name="message"></textarea>
+            <span class="error">This field is required</span>
+        </div>
+        <!-- Submit Button -->
+        <div id="contact_submit">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</body>
+</html>
